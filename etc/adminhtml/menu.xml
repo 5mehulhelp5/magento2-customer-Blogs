@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Menu/etc/menu.xsd">
+    <menu>
+
+        <add id="Evince_Blogs::customer_stories"
+             title="Customer Stories"
+             module="Evince_Blogs"
+             sortOrder="90"
+             parent="Magento_Customer::customer"
+             resource="Evince_Blogs::customer_stories"/>
+
+        <add id="Evince_Blogs::blog"
+     title="Customer Blogs"
+     module="Evince_Blogs"
+     sortOrder="10"
+     parent="Evince_Blogs::customer_stories"
+     action="blogs/blog/index"
+     resource="Evince_Blogs::blog"/>
+
+
+    </menu>
+</config>
+ 

@@ -1,0 +1,136 @@
+<?php
+/** @var \Evince\Blogs\Block\Adminhtml\Blog\ViewDetail $block */
+$blog = $block->getBlog();
+
+if (!$blog || !$blog->getId()):
+?>
+    <div class="message message-error" style="margin:20px;">
+        <?= $block->escapeHtml(__('Blog not found. Please go back and select a valid blog.')) ?>
+        <br/><br/>
+        <a href="<?= $block->escapeUrl($block->getUrl('blogs/blog/index')) ?>" class="action-default">
+            <?= $block->escapeHtml(__('← Back to Customer Blogs')) ?>
+        </a>
+    </div>
+<?php return; endif; ?>
+
+<style>
+.blog-detail-wrap {
+    background: #fff;
+    border: 1px solid #d6d6d6;
+    border-radius: 3px;
+    margin: 20px;
+    padding: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+.blog-detail-wrap .section-title {
+    background: #514943;
+    color: #fff;
+    font-size: 1.4em;
+    font-weight: 600;
+    padding: 14px 20px;
+    margin: 0;
+    border-radius: 3px 3px 0 0;
+}
+.blog-detail-wrap table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.blog-detail-wrap table tr {
+    border-bottom: 1px solid #ebebeb;
+}
+.blog-detail-wrap table tr:last-child {
+    border-bottom: none;
+}
+.blog-detail-wrap table tr:hover {
+    background: #fafafa;
+}
+.blog-detail-wrap table td {
+    padding: 13px 20px;
+    vertical-align: top;
+    font-size: 13px;
+    line-height: 1.7;
+}
+.blog-detail-wrap table td.field-label {
+    font-weight: 700;
+    color: #444;
+    width: 180px;
+    white-space: nowrap;
+    background: #f5f5f5;
+    border-right: 1px solid #ebebeb;
+}
+.blog-detail-wrap table td.field-value {
+    color: #555;
+    word-break: break-word;
+}
+.blog-detail-wrap table td.field-value.content {
+    white-space: pre-wrap;
+    font-family: inherit;
+    max-width: 700px;
+}
+.blog-detail-actions {
+    padding: 14px 20px;
+    border-top: 1px solid #d6d6d6;
+    background: #f5f5f5;
+    border-radius: 0 0 3px 3px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+</style>
+
+<div class="blog-detail-wrap">
+    <h2 class="section-title">
+        <?= $block->escapeHtml(__('Blog Details — #%1', $blog->getId())) ?>
+    </h2>
+
+    <table>
+        <tr>
+            <td class="field-label"><?= $block->escapeHtml(__('Blog ID')) ?></td>
+            <td class="field-value"><?= $block->escapeHtml($blog->getId()) ?></td>
+        </tr>
+        <tr>
+            <td class="field-label"><?= $block->escapeHtml(__('Blog Topic')) ?></td>
+            <td class="field-value"><?= $block->escapeHtml($blog->getBlogTopic()) ?></td>
+        </tr>
+        <tr>
+            <td class="field-label"><?= $block->escapeHtml(__('Author Name')) ?></td>
+            <td class="field-value"><?= $block->escapeHtml($blog->getAuthorName()) ?></td>
+        </tr>
+        <tr>
+            <td class="field-label"><?= $block->escapeHtml(__('Review Title')) ?></td>
+            <td class="field-value"><?= $block->escapeHtml($blog->getReviewTitle()) ?></td>
+        </tr>
+        <tr>
+            <td class="field-label"><?= $block->escapeHtml(__('Meta Title')) ?></td>
+            <td class="field-value"><?= $block->escapeHtml($blog->getMetaTitle()) ?></td>
+        </tr>
+        <tr>
+            <td class="field-label"><?= $block->escapeHtml(__('Meta Description')) ?></td>
+            <td class="field-value"><?= $block->escapeHtml($blog->getMetaDescription()) ?></td>
+        </tr>
+        <tr>
+            <td class="field-label"><?= $block->escapeHtml(__('Keywords')) ?></td>
+            <td class="field-value"><?= $block->escapeHtml($blog->getKeywords()) ?></td>
+        </tr>
+        <tr>
+            <td class="field-label"><?= $block->escapeHtml(__('Blog Content')) ?></td>
+            <td class="field-value content"><?= $block->escapeHtml($blog->getBlogContent()) ?></td>
+        </tr>
+        <tr>
+            <td class="field-label"><?= $block->escapeHtml(__('Created At')) ?></td>
+            <td class="field-value"><?= $block->escapeHtml($blog->getCreatedAt()) ?></td>
+        </tr>
+    </table>
+
+    <div class="blog-detail-actions">
+        <a href="<?= $block->escapeUrl($block->getUrl('blogs/blog/delete', ['blog_id' => $blog->getId()])) ?>"
+           class="action-default scalable delete"
+           onclick="return confirm('<?= $block->escapeJs(__('Are you sure you want to delete this blog?')) ?>')">
+            <span><?= $block->escapeHtml(__('Delete This Blog')) ?></span>
+        </a>
+        <a href="<?= $block->escapeUrl($block->getUrl('blogs/blog/index')) ?>"
+           class="action-default scalable back">
+            <span><?= $block->escapeHtml(__('← Back to Grid')) ?></span>
+        </a>
+    </div>
+</div>

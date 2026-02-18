@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="evince_customer_blog" resource="default" engine="innodb" comment="Customer Blogs">
+        <column xsi:type="int" name="blog_id" identity="true" unsigned="true" nullable="false" comment="Blog ID"/>
+        <column xsi:type="varchar" name="blog_topic" nullable="false" length="255"/>
+        <column xsi:type="text" name="meta_description" nullable="false"/>
+        <column xsi:type="text" name="blog_content" nullable="false"/>
+        <column xsi:type="varchar" name="keywords" nullable="false" length="255"/>
+        <column xsi:type="varchar" name="meta_title" nullable="false" length="255"/>
+        <column xsi:type="varchar" name="author_name" nullable="false" length="255"/>
+        <column xsi:type="varchar" name="review_title" nullable="false" length="255"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="blog_id"/>
+        </constraint>
+    </table>
+</schema>

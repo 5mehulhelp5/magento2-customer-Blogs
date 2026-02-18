@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <!-- ============================================================
+         CRITICAL: argument[data] tells JS which provider to use
+         and what spinner component to reference
+    ============================================================ -->
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">evince_blog_listing.evince_blog_listing_data_source</item>
+        </item>
+    </argument>
+
+    <settings>
+        <!-- spinner must match the columns component name below -->
+        <spinner>evince_blog_columns</spinner>
+        <!-- deps must reference the data source -->
+        <deps>
+            <dep>evince_blog_listing.evince_blog_listing_data_source</dep>
+        </deps>
+    </settings>
+
+    <!-- ============================================================
+         DATA SOURCE — must include component + updateUrl
+    ============================================================ -->
+    <dataSource name="evince_blog_listing_data_source"
+                component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">blog_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Evince\Blogs\Model\Blog\DataProvider"
+                      name="evince_blog_listing_data_source">
+            <settings>
+                <requestFieldName>blog_id</requestFieldName>
+                <primaryFieldName>blog_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <!-- ============================================================
+         TOOLBAR — must come BEFORE columns
+    ============================================================ -->
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete the selected blogs?</message>
+                        <title translate="true">Delete Blogs</title>
+                    </confirm>
+                    <url path="blogs/blog/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
+
+    <!-- ============================================================
+         COLUMNS
+    ============================================================ -->
+    <columns name="evince_blog_columns">
+
+        <!-- Checkbox column for mass-select -->
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>blog_id</indexField>
+            </settings>
+        </selectionsColumn>
+
+        <column name="blog_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Blog ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="blog_topic">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Blog Topic</label>
+            </settings>
+        </column>
+
+        <column name="author_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Author</label>
+            </settings>
+        </column>
+
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+
+        <!-- Actions column with View + Delete -->
+        <actionsColumn name="actions"
+                       class="Evince\Blogs\Ui\Component\Listing\Column\BlogActions">
+            <settings>
+                <indexField>blog_id</indexField>
+                <label translate="true">Actions</label>
+            </settings>
+        </actionsColumn>
+
+    </columns>
+
+</listing>

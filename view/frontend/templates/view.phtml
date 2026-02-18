@@ -1,0 +1,134 @@
+<?php
+/** @var \Evince\Blogs\Block\Article $block */
+?>
+
+<div class="blog-form-wrapper">
+
+    <h2><?= $block->escapeHtml(__('Hello Bloggers!')) ?></h2>
+
+    <form class="form"
+          action="<?= $block->escapeUrl($block->getUrl('blogs/index/submit')) ?>"
+          method="post"
+          id="customer-blog-form"
+          data-mage-init='{"validation":{}}'>
+
+        <?= $block->getBlockHtml('formkey'); ?>
+
+        <fieldset class="fieldset">
+            <legend class="legend">
+                <span><?= $block->escapeHtml(__('Write a Blog')) ?></span>
+            </legend>
+
+            <!-- Blog Topic -->
+            <div class="field required">
+                <label for="blog_topic" class="label">
+                    <span><?= $block->escapeHtml(__('Blog Topic')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="blog_topic"
+                           id="blog_topic"
+                           class="input-text"
+                           data-validate="{required:true}" />
+                </div>
+            </div>
+
+            <!-- Meta Description -->
+            <div class="field required">
+                <label for="meta_description" class="label">
+                    <span><?= $block->escapeHtml(__('Meta Description')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="meta_description"
+                           id="meta_description"
+                           class="input-text"
+                           data-validate="{required:true}" />
+                </div>
+            </div>
+
+            <!-- Blog Content -->
+            <div class="field required">
+                <label for="blog_content" class="label">
+                    <span><?= $block->escapeHtml(__('Blog Content')) ?></span>
+                </label>
+                <div class="control">
+                    <textarea name="blog_content"
+                              id="blog_content"
+                              rows="5"
+                              class="input-text"
+                              data-validate="{required:true}"></textarea>
+                </div>
+            </div>
+
+            <!-- Keywords -->
+            <div class="field required">
+                <label for="keywords" class="label">
+                    <span><?= $block->escapeHtml(__('Keywords')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="keywords"
+                           id="keywords"
+                           class="input-text"
+                           data-validate="{required:true}" />
+                </div>
+            </div>
+
+            <!-- Meta Title -->
+            <div class="field required">
+                <label for="meta_title" class="label">
+                    <span><?= $block->escapeHtml(__('Meta Title')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="meta_title"
+                           id="meta_title"
+                           class="input-text"
+                           data-validate="{required:true}" />
+                </div>
+            </div>
+
+            <!-- Author Name -->
+            <div class="field required">
+                <label for="author_name" class="label">
+                    <span><?= $block->escapeHtml(__('Author Name')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="author_name"
+                           id="author_name"
+                           class="input-text"
+                           data-validate="{required:true}" />
+                </div>
+            </div>
+
+            <!-- Review Title -->
+            <div class="field required">
+                <label for="review_title" class="label">
+                    <span><?= $block->escapeHtml(__('Review Title')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           name="review_title"
+                           id="review_title"
+                           class="input-text"
+                           data-validate="{required:true}" />
+                </div>
+            </div>
+
+        </fieldset>
+
+        <!-- Submit Button -->
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit"
+                        class="action primary">
+                    <span><?= $block->escapeHtml(__('Submit Blog')) ?></span>
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
