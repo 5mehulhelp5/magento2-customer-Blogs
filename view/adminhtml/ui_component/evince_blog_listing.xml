@@ -2,10 +2,6 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
 
-    <!-- ============================================================
-         CRITICAL: argument[data] tells JS which provider to use
-         and what spinner component to reference
-    ============================================================ -->
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">evince_blog_listing.evince_blog_listing_data_source</item>
@@ -13,17 +9,13 @@
     </argument>
 
     <settings>
-        <!-- spinner must match the columns component name below -->
         <spinner>evince_blog_columns</spinner>
-        <!-- deps must reference the data source -->
         <deps>
             <dep>evince_blog_listing.evince_blog_listing_data_source</dep>
         </deps>
     </settings>
 
-    <!-- ============================================================
-         DATA SOURCE — must include component + updateUrl
-    ============================================================ -->
+    <!-- DATA SOURCE -->
     <dataSource name="evince_blog_listing_data_source"
                 component="Magento_Ui/js/grid/provider">
         <settings>
@@ -41,9 +33,7 @@
         </dataProvider>
     </dataSource>
 
-    <!-- ============================================================
-         TOOLBAR — must come BEFORE columns
-    ============================================================ -->
+    <!-- TOOLBAR -->
     <listingToolbar name="listing_top">
         <settings>
             <sticky>true</sticky>
@@ -51,10 +41,27 @@
 
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
+
+        <!-- Full-text keyword search box -->
         <filterSearch name="fulltext"/>
-        <filters name="listing_filters"/>
+
+        <!-- Column-level filter panel -->
+        <filters name="listing_filters">
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+
         <paging name="listing_paging"/>
 
+        <!-- Mass action: Delete -->
         <massaction name="listing_massaction">
             <action name="delete">
                 <settings>
@@ -70,10 +77,24 @@
         </massaction>
     </listingToolbar>
 
-    <!-- ============================================================
-         COLUMNS
-    ============================================================ -->
+    <!-- COLUMNS -->
     <columns name="evince_blog_columns">
+
+        <settings>
+            <editorConfig>
+                <param name="enabled" xsi:type="boolean">false</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">evince_blog_listing.evince_blog_listing.evince_blog_columns.actions</item>
+                    <item name="target" xsi:type="string">applyAction</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">view</item>
+                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
 
         <!-- Checkbox column for mass-select -->
         <selectionsColumn name="ids">
@@ -104,7 +125,8 @@
             </settings>
         </column>
 
-        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date"
+        <column name="created_at"
+                class="Magento\Ui\Component\Listing\Columns\Date"
                 component="Magento_Ui/js/grid/columns/date">
             <settings>
                 <filter>dateRange</filter>
@@ -113,7 +135,7 @@
             </settings>
         </column>
 
-        <!-- Actions column with View + Delete -->
+        <!-- Actions column: View + Delete -->
         <actionsColumn name="actions"
                        class="Evince\Blogs\Ui\Component\Listing\Column\BlogActions">
             <settings>
